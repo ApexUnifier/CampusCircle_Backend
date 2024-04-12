@@ -16,7 +16,6 @@ app.use(
     secret: process.env.SECRET,
     resave: false,
     saveUninitialized: true,
-    maxAge: 1000*60*60
   })
 );
 app.use(passport.initialize());
@@ -47,5 +46,4 @@ mongoose
 app.get("/",(req,res)=>{
     res.status(200).send("<h1>backend server up<h1/>");
   })
-
   app.use("/auth", authRoute);
