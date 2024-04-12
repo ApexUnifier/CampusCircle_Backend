@@ -1,2 +1,2 @@
 # CampusCircle_Backend
-a Student Social media
+A Student Social media Platform
