@@ -2,12 +2,25 @@ import express, { application } from "express";
 import cors from "cors"; 
 import dotenv from "dotenv";
 import mongoose from "mongoose";
-
-
+import passport from "passport";
+import { Strategy } from "passport-local";
+import session from "express-session";
+import passportSetup from "./controllers/login.js";
+import authRoute from "./routers/auth.js"
+dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 4001;
 
-dotenv.config();
+app.use(
+  session({
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: true,
+    maxAge: 1000*60*60
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(express.json());
 
 // Use cors middleware to enable CORS
@@ -34,3 +47,5 @@ mongoose
 app.get("/",(req,res)=>{
     res.status(200).send("<h1>backend server up<h1/>");
   })
+
+  app.use("/auth", authRoute);
