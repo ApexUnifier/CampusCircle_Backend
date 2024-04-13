@@ -4,8 +4,8 @@ const {NotesSchema} = schemas
 import path from 'path';
 // Create Note
 export const createNote = async (req, res) => {
-  const { title, userId, description } = req.body;
   const file = req.file; // assuming you're using something like multer for file handling
+  const { title, userId, description } = req.body;
 
   if (!file) return res.status(400).send('No file uploaded.');
 //absoluteFilePath is saved
@@ -14,7 +14,7 @@ export const createNote = async (req, res) => {
   const newNote = new NotesSchema({
     title,
     userId,
-    absoluteFilePath, 
+    docs: absoluteFilePath, 
     description
   });
 
