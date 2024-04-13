@@ -7,8 +7,7 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema(
   {
     name: {
-      type: String,
-      required: true,
+      type: String
     },
     email: {
       type: String,
@@ -23,6 +22,10 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+    phoneNo: {
+      type: String,
+      unique: true,
+    },
   },
   { timestamps: true }
 );
@@ -34,10 +37,11 @@ userSchema.statics.signup = async function (name, email, password) {
     throw Error("All fields are mandatory");
   }
 
-
+  // Check if the email or phone number already exists
   const existEmail = await this.findOne({ email });
 
-  // If email number already exists, throw an error
+
+  // If email or phone number already exists, throw an error
   if (existEmail) {
     throw new Error("Email is already in use");
   }
