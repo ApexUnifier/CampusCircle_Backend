@@ -2,13 +2,12 @@ import express from 'express';
 import multer from 'multer';
 import { v4 as uuidv4 } from 'uuid';
 import path from 'path';
-// let User = require('../models/user.modal');
 
 const router = express();
 
 const imageStorage = multer.diskStorage({
     destination: function(req, file, cb) {
-        cb(null, 'images/');
+        cb(null, 'Assets/images');
     },
     filename: function(req, file, cb) {   
         cb(null, uuidv4() + '-' + Date.now() + path.extname(file.originalname));
@@ -16,7 +15,7 @@ const imageStorage = multer.diskStorage({
 });
 const docStorage = multer.diskStorage({
     destination: function(req, file, cb) {
-        cb(null, 'docs/');
+        cb(null, 'Assets/docs');
     },
     filename: function(req, file, cb) {   
         cb(null, uuidv4() + '-' + Date.now() + path.extname(file.originalname));
@@ -46,23 +45,3 @@ const imageUpload = multer({imageStorage, imagefileFilter});
 
 const obj = {docUpload,imageUpload}
 export default obj;
-
-// router.route('/add').post(upload.single('photo'), (req, res) => {
-//     const name = req.body.name;
-//     const birthdate = req.body.birthdate;
-//     const photo = req.file.filename;
-
-//     const newUserData = {
-//         name,
-//         birthdate,
-//         photo
-//     }
-
-//     const newUser = new User(newUserData);
-
-//     newUser.save()
-//            .then(() => res.json('User Added'))
-//            .catch(err => res.status(400).json('Error: ' + err));
-// });
-
-// module.exports = router;
