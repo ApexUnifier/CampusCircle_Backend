@@ -28,7 +28,7 @@ export const createNote = async (req, res) => {
 
 // Add Like
 export const addNotesLike = async (req, res) => {
-  const { id } = req.params; // getting note ID from route parameters
+  const { id } = req.params;
 
   try {
     const note = await NotesSchema.findById(id);

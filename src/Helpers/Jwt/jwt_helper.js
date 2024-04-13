@@ -41,4 +41,4 @@ const jwtHelper = {
   signRefreshToken,
   verifyRefreshToken,
 };
-export default jwt;
+export default jwtHelper;
