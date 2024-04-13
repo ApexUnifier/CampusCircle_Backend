@@ -1,7 +1,10 @@
 import dotenv from "dotenv";
 import OpenAI from "openai";
+import { functionDescription } from "../features/functions.mjs";
+import main from "../document/ReadDocument.js"
+import schemas from "../../Models/index.js"; // assuming the model file is named 
 
-import { functionDescription } from "../description/functions.mjs";
+const { NotesSchema,PostSchema,ResourceSchema } = schemas;
 
 
 dotenv.config();
@@ -9,6 +12,36 @@ dotenv.config();
 function delay(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
+const getNotes = async () => {
+  try {
+    const notes = await NotesSchema.find().populate("userId");
+    return notes;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
+const getPosts = async () => {
+  try {
+    const posts = await PostSchema.find().populate("userId");
+    return posts;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
+const getResources = async () => {
+  try {
+    const resources = await ResourceSchema.find().populate("userId");
+    return resources;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
 
 const funcDes = functionDescription;
 const runOpenAIRequest = async (Input) => {
@@ -49,42 +82,21 @@ const runOpenAIRequest = async (Input) => {
       }
       let function_response = "";
       switch (function_name) {
-        case "email":
-          let emailArgs = JSON.parse(message.function_call.arguments);
-          function_response = email(
-            emailArgs.subject,
-            emailArgs.emailAddress,
-            emailArgs.Body
-          );
-          await delay(500);
-          // await delay(2000);
+        case "getNotes":
+          function_response = getNotes();
           break;
-        case "getAllVacancies":
-          // Make API call to retrieve vacancies
-          try {
-            function_response = await getAllVacancies();
-            console.log(function_response);
-          } catch (error) {
-            console.error("Error fetching vacancies:", error);
-          }
+
+        case "getPosts":
+          function_response = getPosts();
           break;
-        case "docVacany":
-          try {
-            function_response = await getAllVacancies();
-            console.log(function_response);
-          } catch (error) {
-            console.error("Error fetching vacancies:", error);
-          }
+
+        case "getResources":
+          function_response=getResources();
           break;
-        case "getUsersAi":
-          // Make API call to retrieve vacancies
-          try {
-            function_response = await getUsersAi();
-            console.log(function_response);
-          } catch (error) {
-            console.error("Error fetching vacancies:", error);
-          }
-          break;
+        case "main":
+          let mainArgs = JSON.parse(message.function_call.arguments);
+          main(mainArgs.path);
+
         default:
           throw new Error(`Unsupported function: ${function_name}`);
       }
@@ -113,4 +125,5 @@ const runOpenAIRequest = async (Input) => {
   }
 };
 
-export default runOpenAIRequest;
+// export default runOpenAIRequest;
+runOpenAIRequest("hii");

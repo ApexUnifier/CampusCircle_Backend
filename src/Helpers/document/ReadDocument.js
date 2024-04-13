@@ -1,9 +1,4 @@
-/*
-  This code sample shows Prebuilt Read operations with the Azure Form Recognizer client library. 
 
-  To learn more, please visit the documentation - Quickstart: Document Intelligence (formerly Form Recognizer) SDKs
-  https://learn.microsoft.com/azure/ai-services/document-intelligence/quickstarts/get-started-sdks-rest-api?pivots=programming-language-javascript
-*/
 
 import {
   AzureKeyCredential,
@@ -11,7 +6,6 @@ import {
 } from "@azure/ai-form-recognizer";
 import { config } from "dotenv";
 import fs from "fs";
-import runOpenAIRequest from "../openai/ai.js";
 
 config();
 
@@ -21,11 +15,7 @@ function* getTextOfSpans(content, spans) {
   }
 }
 
-/*
-  Remember to remove the key from your code when you're done, and never post it publicly. For production, use
-  secure methods to store and access your credentials. For more information, see 
-  https://docs.microsoft.com/en-us/azure/cognitive-services/cognitive-services-security?tabs=command-line%2Ccsharp#environment-variables-and-application-configuration
-*/
+
 const key = process.env.DOC_KEY;
 const endpoint = process.env.DOC_ENDPOINT;
 
@@ -54,31 +44,6 @@ async function main(path) {
       }
     }
   }
-
-  // if (concatenatedText === "") {
-  //   console.log("No words were extracted from the document.");
-  // } else {
-  //   console.log("Concatenated Text:");
-  //   console.log(concatenatedText);
-  // }
-
-  // // if (languages.length <= 0) {
-  //   console.log("No language spans were extracted from the document.");
-  // } else {
-  // console.log("Languages:");
-  // for (const languageEntry of languages) {
-  //   console.log(
-  //     `- Found language: ${languageEntry.languageCode} (confidence: ${languageEntry.confidence})`
-  //   );
-  //   for (const text of getTextOfSpans(
-  //     concatenatedText,
-  //     languageEntry.spans
-  //   )) {
-  //     const escapedText = text.replace(/\r?\n/g, "\\n").replace(/"/g, '\\"');
-  //     console.log(`  - "${escapedText}"`);
-  //   }
-  // }
-  // }
 
   if (styles.length <= 0) {
     console.log("No text styles were extracted from the document.");
