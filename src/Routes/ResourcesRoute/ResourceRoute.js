@@ -1,10 +1,10 @@
 import express from 'express';
 import { resourceController } from '../../Controllers/index.js';
-
+import files from "../../Helpers/filesHelper/filesHelper.js"
 const router = express.Router();
 
 // Create Resource
-router.post('/', resourceController.createResource);
+router.post('/',files.imageUpload('image'), resourceController.createResource);
 
 // Add Like to a Resource
 router.post('/:id/like', resourceController.addResourceLike);

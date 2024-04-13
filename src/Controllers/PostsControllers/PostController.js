@@ -1,14 +1,19 @@
 import schemas from '../../Models/index.js'; // assuming the model file is named 'index.js'
 const {PostSchema} = schemas
 
+import path from 'path';
+
 // Create Post
 export const createPost = async (req, res) => {
+  if (!file) return res.status(400).send('No file uploaded.');
   const { title, userId, image, description } = req.body;
+  //absoluteFilePath is saved
+  const absoluteFilePath = path.resolve(file.path);
 
   const newPost = new PostSchema({
     title,
     userId,
-    // image,
+    absoluteFilePath,
     description
   });
 

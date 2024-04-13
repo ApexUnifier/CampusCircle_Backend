@@ -1,17 +1,20 @@
 import schemas from '../../Models/index.js'; // assuming the model file is named 'NotesModel.js'
 const {NotesSchema} = schemas
 
+import path from 'path';
 // Create Note
 export const createNote = async (req, res) => {
   const { title, userId, description } = req.body;
-//   const file = req.file; // assuming you're using something like multer for file handling
+  const file = req.file; // assuming you're using something like multer for file handling
 
-//   if (!file) return res.status(400).send('No file uploaded.');
+  if (!file) return res.status(400).send('No file uploaded.');
+//absoluteFilePath is saved
+  const absoluteFilePath = path.resolve(file.path); 
 
   const newNote = new NotesSchema({
     title,
     userId,
-    // docs: file.path, 
+    absoluteFilePath, 
     description,
   });
 

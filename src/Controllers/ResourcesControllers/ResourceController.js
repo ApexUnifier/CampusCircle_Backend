@@ -4,7 +4,6 @@ const {ResourceSchema} = schemas
 // Create Resource
 export const createResource = async (req, res) => {
   const { title, userId, link, description } = req.body;
-
   const newResource = new ResourceSchema({
     title,
     userId,
