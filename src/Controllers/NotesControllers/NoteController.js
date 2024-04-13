@@ -1,65 +1,51 @@
-const express = require('express');
-const router = express.Router();
-const Note = require('../../Models/index.js');
+import schemas from '../../Models/index.js'; // assuming the model file is named 'NotesModel.js'
+const {NotesSchema} = schemas
 
-router.post('/', async (req, res) => {
-    const note = new Note({
-        title: req.body.title,
-        userId: req.body.userId,
-        docs: req.body.docs,
-        description: req.body.description,
-        likes: req.body.likes
-    });
+// Create Note
+export const createNote = async (req, res) => {
+  const { title, userId, description, likes } = req.body;
+//   const file = req.file; // assuming you're using something like multer for file handling
 
-    try {
-        const savedNote = await note.save();
-        res.json(savedNote);
-    } catch (err) {
-        res.json({ message: err });
-    }
-});
+//   if (!file) return res.status(400).send('No file uploaded.');
 
-// Get all notes
-router.get('/', async (req, res) => {
-    try {
-        const notes = await Note.find();
-        res.json(notes);
-    } catch (err) {
-        res.json({ message: err });
-    }
-});
+  const newNote = new NotesSchema({
+    title,
+    userId,
+    // docs: file.path, 
+    description,
+    likes
+  });
 
-// Get a specific note
-router.get('/:noteId', async (req, res) => {
-    try {
-        const note = await Note.findById(req.params.noteId);
-        res.json(note);
-    } catch (err) {
-        res.json({ message: err });
-    }
-});
+  try {
+    const savedNote = await newNote.save();
+    res.status(200).json(savedNote);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
 
-// Delete a note
-router.delete('/:noteId', async (req, res) => {
-    try {
-        const removedNote = await Note.remove({ _id: req.params.noteId });
-        res.json(removedNote);
-    } catch (err) {
-        res.json({ message: err });
-    }
-});
+// Add Like
+export const addLike = async (req, res) => {
+  const { id } = req.params; // getting note ID from route parameters
 
-// Update a note
-router.patch('/:noteId', async (req, res) => {
-    try {
-        const updatedNote = await Note.updateOne(
-            { _id: req.params.noteId },
-            { $set: {title: req.body.title, docs: req.body.docs, description: req.body.description, likes: req.body.likes} }
-        );
-        res.json(updatedNote);
-    } catch (err) {
-        res.json({ message: err });
-    }
-});
+  try {
+    const note = await NotesSchema.findById(id);
+    note.likes += 1;
+    const updatedNote = await note.save();
+    res.status(200).json(updatedNote);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
 
-module.exports = router;
+// Delete Note
+export const deleteNote = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const deletedNote = await NotesSchema.findByIdAndRemove(id);
+    res.status(200).json(deletedNote);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
