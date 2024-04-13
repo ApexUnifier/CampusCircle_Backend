@@ -40,8 +40,8 @@ const docfileFilter = (req, file, cb) => {
 }
 
 //instance for each type upload
-const docUpload = multer({ storage:docStorage, docfileFilter });
-const imageUpload = multer({storage:imageStorage, imagefileFilter});
+const docUpload = multer({ storage: docStorage, fileFilter: docfileFilter });
+const imageUpload = multer({ storage: imageStorage, fileFilter: imagefileFilter });
 
-const obj = {docUpload,imageUpload}
-export default obj;
+const files= {docUpload,imageUpload};
+export default files;

@@ -4,7 +4,7 @@ const router = express.Router();
 import { notesController } from '../../Controllers/index.js';
 
 // Create Note
-router.post('/',files.docUpload('doc'), notesController.createNote); //it will give file as input as well
+router.post('/',files.docUpload.single('doc'), notesController.createNote); //it will give file as input as well
 
 // Add Like to a Note
 router.post('/:id/like', notesController.addNotesLike);

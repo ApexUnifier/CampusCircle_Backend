@@ -4,7 +4,7 @@ import files from "../../Helpers/filesHelper/filesHelper.js"
 import { postController } from '../../Controllers/index.js';
 
 // Use the controllers
-router.post('/',files.imageUpload('image'), postController.createPost);
+router.post('/',files.imageUpload.single('images'), postController.createPost);
 router.post('/:id/like', postController.addPostLike);
 router.delete('/:id', postController.deletePost);
 router.get('/', postController.getPosts);
