@@ -1,13 +1,13 @@
-import schemas from '../../Models/index.js'; // assuming the model file is named 'index.js'
-const {PostSchema} = schemas
+import schemas from "../../Models/index.js"; // assuming the model file is named 'index.js'
+const { PostSchema } = schemas;
 
-import path from 'path';
+import path from "path";
 
 // Create Post
 export const createPost = async (req, res) => {
   const file = req.file;
   const { title, userId, image, description } = req.body;
-  if (!file) return res.status(400).send('No file uploaded.');
+  if (!file) return res.status(400).send("No file uploaded.");
   //absoluteFilePath is saved
   const absoluteFilePath = path.resolve(file.path);
 
@@ -15,7 +15,7 @@ export const createPost = async (req, res) => {
     title,
     userId,
     absoluteFilePath,
-    description
+    description,
   });
 
   try {
@@ -55,10 +55,18 @@ export const deletePost = async (req, res) => {
 // Get All Posts
 export const getPosts = async (req, res) => {
   try {
-    const posts = await PostSchema.find().populate('userId');
+    const posts = await PostSchema.find().populate("userId");
     res.status(200).json(posts);
   } catch (error) {
     res.status(500).send(error);
+  }
+};
+export const getPostsFunc = async () => {
+  try {
+    const posts = await PostSchema.find().populate("userId");
+    return posts;
+  } catch (error) {
+    return error;
   }
 };
 
@@ -67,11 +75,11 @@ export const getPostById = async (req, res) => {
   const { id } = req.params; // getting post ID from route parameters
 
   try {
-    const post = await PostSchema.findById(id).populate('userId');
+    const post = await PostSchema.findById(id).populate("userId");
     if (post) {
       res.status(200).json(post);
     } else {
-      res.status(404).send('Post not found');
+      res.status(404).send("Post not found");
     }
   } catch (error) {
     res.status(500).send(error);
@@ -83,7 +91,7 @@ export const getPostsByUserId = async (req, res) => {
   const { userId } = req.params; // getting user ID from route parameters
 
   try {
-    const posts = await PostSchema.find({ userId: userId }).populate('userId');
+    const posts = await PostSchema.find({ userId: userId }).populate("userId");
     res.status(200).json(posts);
   } catch (error) {
     res.status(500).send(error);

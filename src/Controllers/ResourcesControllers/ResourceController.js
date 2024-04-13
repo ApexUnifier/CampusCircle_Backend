@@ -1,5 +1,5 @@
-import schemas from '../../Models/index.js'; // assuming the model file is named 'index.js'
-const {ResourceSchema} = schemas
+import schemas from "../../Models/index.js"; // assuming the model file is named 'index.js'
+const { ResourceSchema } = schemas;
 
 // Create Resource
 export const createResource = async (req, res) => {
@@ -7,7 +7,7 @@ export const createResource = async (req, res) => {
   const newResource = new ResourceSchema({
     title,
     userId,
-    link, 
+    link,
     description,
   });
 
@@ -48,10 +48,18 @@ export const deleteResource = async (req, res) => {
 // Get All Resources
 export const getResources = async (req, res) => {
   try {
-    const resources = await ResourceSchema.find().populate('userId');
+    const resources = await ResourceSchema.find().populate("userId");
     res.status(200).json(resources);
   } catch (error) {
     res.status(500).send(error);
+  }
+};
+export const getResourcesFunc = async () => {
+  try {
+    const resources = await ResourceSchema.find().populate("userId");
+    return resources;
+  } catch (error) {
+    return error;
   }
 };
 
@@ -60,11 +68,11 @@ export const getResourceById = async (req, res) => {
   const { id } = req.params; // getting resource ID from route parameters
 
   try {
-    const resource = await ResourceSchema.findById(id).populate('userId');
+    const resource = await ResourceSchema.findById(id).populate("userId");
     if (resource) {
       res.status(200).json(resource);
     } else {
-      res.status(404).send('Resource not found');
+      res.status(404).send("Resource not found");
     }
   } catch (error) {
     res.status(500).send(error);
@@ -76,7 +84,9 @@ export const getResourceByUserId = async (req, res) => {
   const { userId } = req.params; // getting user ID from route parameters
 
   try {
-    const resources = await ResourceSchema.find({ userId: userId }).populate('userId');
+    const resources = await ResourceSchema.find({ userId: userId }).populate(
+      "userId"
+    );
     res.status(200).json(resources);
   } catch (error) {
     res.status(500).send(error);

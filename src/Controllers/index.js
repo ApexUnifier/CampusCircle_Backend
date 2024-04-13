@@ -1,22 +1,31 @@
-import { addNotesLike, createNote, deleteNote, getNoteById, getNoteByUserId, getNotes } from "./NotesControllers/NoteController.js";
-import { 
+import {
+  addNotesLike,
+  createNote,
+  deleteNote,
+  getNoteById,
+  getNoteByUserId,
+  getNotes,
+  getNotesFunc,
+} from "./NotesControllers/NoteController.js";
+import {
   createPost,
   addPostLike,
   deletePost,
   getPosts,
   getPostById,
-  getPostsByUserId 
+  getPostsByUserId,
+  getPostsFunc,
 } from "./PostsControllers/PostController.js";
 import { login, signup } from "./UsersControllers/Post.js";
-import { 
-  createResource, 
-  addResourceLike, 
-  deleteResource, 
-  getResources, 
-  getResourceById, 
-  getResourceByUserId 
+import {
+  createResource,
+  addResourceLike,
+  deleteResource,
+  getResources,
+  getResourceById,
+  getResourceByUserId,
+  getResourcesFunc,
 } from "./ResourcesControllers/ResourceController.js";
-
 
 export const usersController = {
   login,
@@ -24,8 +33,14 @@ export const usersController = {
 };
 
 export const notesController = {
-  createNote,addNotesLike,deleteNote, getNoteById, getNoteByUserId,getNotes
-}
+  createNote,
+  addNotesLike,
+  deleteNote,
+  getNoteById,
+  getNoteByUserId,
+  getNotes,
+  getNotesFunc,
+};
 
 export const postController = {
   createPost,
@@ -33,7 +48,8 @@ export const postController = {
   deletePost,
   getPosts,
   getPostById,
-  getPostsByUserId
+  getPostsByUserId,
+  getPostsFunc,
 };
 
 export const resourceController = {
@@ -42,5 +58,6 @@ export const resourceController = {
   deleteResource,
   getResources,
   getResourceById,
-  getResourceByUserId
+  getResourceByUserId,
+  getResourcesFunc,
 };
