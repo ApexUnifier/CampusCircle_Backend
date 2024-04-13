@@ -1,5 +1,7 @@
 import UserSchema from "./UsersModel/userModel.js";
-import VacancySchema from "./VacancyModel.js/VacancyModel.js";
+import NotesSchema from "./notesModel/notesModel.js";
+import PostSchema from "./postModel/postModel.js";
+import  ResourceSchema from "./resourceModel/resourceModel.js"
 const schemas = {
   UserSchema,
   VacancySchema,

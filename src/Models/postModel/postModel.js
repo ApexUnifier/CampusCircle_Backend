@@ -10,14 +10,10 @@ const postSchema = new Schema(
       type: String,
       required:true
     },
-    email: {
-      type: String,
-      required: true,
-      validate: {
-        validator: validator.isEmail,
-        message: "Invalid email address",
-      },
-    },
+    userId: { type: mongoose.Schema.Types.ObjectId, 
+      ref:"User",
+      required:true
+  },
     image:{
       type:String
     },
