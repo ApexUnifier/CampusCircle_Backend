@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt";
 import schemas from "../../Models/index.js";
+import mongoose from "mongoose";
 import { Jwt } from "../../Helpers/index.js";
 
 const { UserSchema } = schemas;
@@ -7,7 +8,7 @@ const { UserSchema } = schemas;
 // Signup
 export const signup = async (req, res) => {
   try {
-    const { name, email, password, phoneNo } = req.body;
+    const { name, email, password, role } = req.body;
 
     // Check if the user already exists
     const existingUser = await UserSchema.findOne({ email });
@@ -25,7 +26,7 @@ export const signup = async (req, res) => {
       name,
       email,
       password: hashedPassword,
-      phoneNo,
+      role
     });
 
     // Save the user to the database

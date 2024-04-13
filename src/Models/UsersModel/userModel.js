@@ -15,10 +15,11 @@ const userSchema = new Schema(
     //teacher or student
     role:{
       type:String,
+      default:"student",
+      required: true,
       validate: {
         validator: validateRole,
         message: "Role must be either 'teacher' or 'student'",
-        required: true
       }
     },
     email: {

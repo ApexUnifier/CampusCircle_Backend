@@ -34,7 +34,7 @@ app.use(cors());
 // });
 
 // Serve static files
-app.use(express.static(path.join(__dirname, "build")));
+// app.use(express.static(path.join(__dirname, "build")));
 
 // Define API routes
 app.use("/api", APIRoutes);
