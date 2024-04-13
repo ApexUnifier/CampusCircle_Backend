@@ -5,8 +5,9 @@ import path from 'path';
 
 // Create Post
 export const createPost = async (req, res) => {
-  if (!file) return res.status(400).send('No file uploaded.');
+  const file = req.file;
   const { title, userId, image, description } = req.body;
+  if (!file) return res.status(400).send('No file uploaded.');
   //absoluteFilePath is saved
   const absoluteFilePath = path.resolve(file.path);
 

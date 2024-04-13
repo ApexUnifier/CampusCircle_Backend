@@ -15,7 +15,7 @@ export const createNote = async (req, res) => {
     title,
     userId,
     absoluteFilePath, 
-    description,
+    description
   });
 
   try {
