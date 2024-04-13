@@ -49,3 +49,41 @@ export const deleteNote = async (req, res) => {
     res.status(500).send(error);
   }
 };
+
+// Get All Notes
+export const getNotes = async (req, res) => {
+  try {
+    const notes = await NotesSchema.find();
+    res.status(200).json(notes);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+// Get Note by ID
+export const getNoteById = async (req, res) => {
+  const { id } = req.params; // getting note ID from route parameters
+
+  try {
+    const note = await NotesSchema.findById(id);
+    if (note) {
+      res.status(200).json(note);
+    } else {
+      res.status(404).send('Note not found');
+    }
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+// Get Notes by User ID
+export const getNoteByUserId = async (req, res) => {
+  const { userId } = req.params; // getting user ID from route parameters
+
+  try {
+    const notes = await NotesSchema.find({ userId: userId });
+    res.status(200).json(notes);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
