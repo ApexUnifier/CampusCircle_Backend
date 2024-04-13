@@ -40,7 +40,7 @@ const docfileFilter = (req, file, cb) => {
     }
 }
 
-
+//instance for each type upload
 const docUpload = multer({ docStorage, docfileFilter });
 const imageUpload = multer({imageStorage, imagefileFilter});
 
