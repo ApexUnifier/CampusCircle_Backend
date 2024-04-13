@@ -25,7 +25,7 @@ export const createNote = async (req, res) => {
 };
 
 // Add Like
-export const addLike = async (req, res) => {
+export const addNotesLike = async (req, res) => {
   const { id } = req.params; // getting note ID from route parameters
 
   try {
@@ -53,7 +53,7 @@ export const deleteNote = async (req, res) => {
 // Get All Notes
 export const getNotes = async (req, res) => {
   try {
-    const notes = await NotesSchema.find();
+    const notes = await NotesSchema.find().populate('userId');
     res.status(200).json(notes);
   } catch (error) {
     res.status(500).send(error);
@@ -65,7 +65,7 @@ export const getNoteById = async (req, res) => {
   const { id } = req.params; // getting note ID from route parameters
 
   try {
-    const note = await NotesSchema.findById(id);
+    const note = await NotesSchema.findById(id).populate('userId');
     if (note) {
       res.status(200).json(note);
     } else {
@@ -81,7 +81,7 @@ export const getNoteByUserId = async (req, res) => {
   const { userId } = req.params; // getting user ID from route parameters
 
   try {
-    const notes = await NotesSchema.find({ userId: userId });
+    const notes = await NotesSchema.find({ userId: userId }).populate('userId');
     res.status(200).json(notes);
   } catch (error) {
     res.status(500).send(error);
