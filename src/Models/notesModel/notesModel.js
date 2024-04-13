@@ -3,8 +3,7 @@ import bcrypt from "bcrypt";
 import validator from "validator";
 
 const Schema = mongoose.Schema;
-
-const postSchema = new Schema(
+const notesSchema = new Schema(
   {
     title: {
       type: String,
@@ -18,8 +17,9 @@ const postSchema = new Schema(
         message: "Invalid email address",
       },
     },
-    image:{
-      type:String
+    docs:{
+      type:String,
+      required: true
     },
     description:{
       type: String,
@@ -34,6 +34,6 @@ const postSchema = new Schema(
 );
 
 
-const Post = mongoose.model("Post", postSchema);
-// in post you can talk about anything useful
-export default Post;
+const Notes = mongoose.model("Notes", notesSchema);
+//for notes a file is necessary to be uploaded.
+export default Notes;

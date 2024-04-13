@@ -4,7 +4,7 @@ import validator from "validator";
 
 const Schema = mongoose.Schema;
 
-const postSchema = new Schema(
+const resourceSchema = new Schema(
   {
     title: {
       type: String,
@@ -18,7 +18,7 @@ const postSchema = new Schema(
         message: "Invalid email address",
       },
     },
-    image:{
+    link:{
       type:String
     },
     description:{
@@ -34,6 +34,8 @@ const postSchema = new Schema(
 );
 
 
-const Post = mongoose.model("Post", postSchema);
-// in post you can talk about anything useful
-export default Post;
+const Resource = mongoose.model("Resource", resourceSchema);
+
+//this model is specially for resource disscussion and external resources link is provided.
+
+export default Resource;

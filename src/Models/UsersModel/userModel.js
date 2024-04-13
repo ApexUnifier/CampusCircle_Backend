@@ -2,12 +2,24 @@ import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import validator from "validator";
 
+function validateRole(role) {
+  return role === "teacher" || role === "student";
+}
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema(
   {
     name: {
       type: String,
+    },
+    //teacher or student
+    role:{
+      type:String,
+      validate: {
+        validator: validateRole,
+        message: "Role must be either 'teacher' or 'student'",
+        required: true
+      }
     },
     email: {
       type: String,
