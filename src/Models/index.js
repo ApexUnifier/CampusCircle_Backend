@@ -4,6 +4,6 @@ import PostSchema from "./postModel/postModel.js";
 import  ResourceSchema from "./resourceModel/resourceModel.js"
 const schemas = {
   UserSchema,
-  VacancySchema,
+  NotesSchema,PostSchema,ResourceSchema
 };
 export default schemas;
