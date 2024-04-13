@@ -1,6 +1,4 @@
 import mongoose from "mongoose";
-import bcrypt from "bcrypt";
-import validator from "validator";
 
 const Schema = mongoose.Schema;
 const notesSchema = new Schema(
