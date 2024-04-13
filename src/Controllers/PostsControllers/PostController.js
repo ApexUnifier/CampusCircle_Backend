@@ -3,14 +3,13 @@ const {PostSchema} = schemas
 
 // Create Post
 export const createPost = async (req, res) => {
-  const { title, userId, image, description, likes } = req.body;
+  const { title, userId, image, description } = req.body;
 
   const newPost = new PostSchema({
     title,
     userId,
     // image,
-    description,
-    likes
+    description
   });
 
   try {
@@ -50,7 +49,7 @@ export const deletePost = async (req, res) => {
 // Get All Posts
 export const getPosts = async (req, res) => {
   try {
-    const posts = await PostSchema.find();
+    const posts = await PostSchema.find().populate('userId');
     res.status(200).json(posts);
   } catch (error) {
     res.status(500).send(error);
@@ -62,7 +61,7 @@ export const getPostById = async (req, res) => {
   const { id } = req.params; // getting post ID from route parameters
 
   try {
-    const post = await PostSchema.findById(id);
+    const post = await PostSchema.findById(id).populate('userId');
     if (post) {
       res.status(200).json(post);
     } else {
@@ -78,7 +77,7 @@ export const getPostsByUserId = async (req, res) => {
   const { userId } = req.params; // getting user ID from route parameters
 
   try {
-    const posts = await PostSchema.find({ userId: userId });
+    const posts = await PostSchema.find({ userId: userId }).populate('userId');
     res.status(200).json(posts);
   } catch (error) {
     res.status(500).send(error);

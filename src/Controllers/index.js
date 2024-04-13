@@ -8,6 +8,15 @@ import {
   getPostsByUserId 
 } from "./PostsControllers/PostController.js";
 import { login, signup } from "./UsersControllers/Post.js";
+import { 
+  createResource, 
+  addResourceLike, 
+  deleteResource, 
+  getResources, 
+  getResourceById, 
+  getResourceByUserId 
+} from "./ResourcesControllers/ResourceController.js";
+
 
 export const usersController = {
   login,
@@ -25,4 +34,13 @@ export const postController = {
   getPosts,
   getPostById,
   getPostsByUserId
+};
+
+export const resourceController = {
+  createResource,
+  addResourceLike,
+  deleteResource,
+  getResources,
+  getResourceById,
+  getResourceByUserId
 };

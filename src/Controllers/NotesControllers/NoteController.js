@@ -3,7 +3,7 @@ const {NotesSchema} = schemas
 
 // Create Note
 export const createNote = async (req, res) => {
-  const { title, userId, description, likes } = req.body;
+  const { title, userId, description } = req.body;
 //   const file = req.file; // assuming you're using something like multer for file handling
 
 //   if (!file) return res.status(400).send('No file uploaded.');
@@ -13,7 +13,6 @@ export const createNote = async (req, res) => {
     userId,
     // docs: file.path, 
     description,
-    likes
   });
 
   try {
