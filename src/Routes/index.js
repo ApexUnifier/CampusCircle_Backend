@@ -7,6 +7,4 @@ const router = express.Router();
 router.use("/user", userRoutes);
 router.use("/vacancy", vacancyRoutes);
 
-router.use("post/create")
-
 export default router;
